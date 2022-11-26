@@ -1,7 +1,7 @@
 import { HashTable, KeyType } from "./interface";
 import type { CacheStrategy } from "./interface";
 
-export abstract class BaseCacheStrategy<V> implements CacheStrategy<V> {
+export abstract class AbstractCacheStrategy<V> implements CacheStrategy<V> {
 
     protected maxSize: number;
 
