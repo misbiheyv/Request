@@ -19,6 +19,10 @@ export abstract class AbstractCacheStrategy<V> implements CacheStrategy<V> {
 
     set(key: KeyType, value: any): void {}
 
+    has(key: KeyType): boolean {
+        return this.elementsMap.has(key);
+    }
+
     display(): void {
         console.log(this.elementsMap)
     }

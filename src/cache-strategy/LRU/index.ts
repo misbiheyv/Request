@@ -1,35 +1,33 @@
-import LinkedList from "../../linked-list/LinkedList";
-
 import type { KeyType } from "../interface";
 import {AbstractCacheStrategy} from "../AbstractCacheStrategy";
 
 export default class LRU<V> extends AbstractCacheStrategy<V> {
-
-    #elementsList: LinkedList<KeyType> = new LinkedList<KeyType>();
 
     constructor(size: number) {
         super(size);
     }
 
     get(key: KeyType): V {
-        if (!this.#elementsList.has(key))
+        if (!this.elementsMap.has(key))
             throw new Error('Element does not exist.');
 
-        this.#elementsList.delete(key);
-        this.#elementsList.insertLast(key);
+        const value = this.elementsMap.get(key);
+        this.elementsMap.delete(key);
+        this.elementsMap.set(key, value);
 
-        return this.elementsMap.get(key);
+        return value;
     }
 
     set(key: KeyType, value: V): void {
         if (this.maxSize === this.curSize) {
-            const deletedKey = this.#elementsList.deleteFirst();
-            this.elementsMap.delete(deletedKey!);
+            const
+                deletedEl = this.elementsMap[Symbol.iterator]().next();
+
+            this.elementsMap.delete(deletedEl.value[0]);
             this.curSize--;
         }
 
         this.curSize++;
-        this.#elementsList.insertLast(key);
         this.elementsMap.set(key, value);
     }
 }

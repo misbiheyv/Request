@@ -1,13 +1,16 @@
-import { MRU, LRU } from "./cache-strategy";
+function bar(arg: number) {
+    const dec: MethodDecorator = (target, propertyKey, descriptor) => {
+        return targe;
+    }
+    return dec;
+}
 
-const mru = new LRU(4);
 
-mru.set('A', null);
-mru.set('B', null);
-mru.set('C', null);
-mru.set('D', null);
-mru.set('E', null);
-mru.get('D');
-mru.set('F', null);
+class Test {
+    @bar(100)
+    foo() {
+        return 100;
+    }
+}
 
-mru.display()
+console.log(new Test().foo())
